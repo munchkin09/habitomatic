@@ -1,0 +1,38 @@
+[ERROR]: Fri Feb 10 47347 13:35:43 GMT+0100 (Hora estándar romance) Object => {
+    "name": "MongoError",
+    "message": "auth failed",
+    "ok": 0,
+    "errmsg": "auth failed",
+    "code": 18
+}
+[START]: Connected to mongodb! port: 27017
+[START]: Connected to mongodb! port: 27017
+[START]: Connected to mongodb! port: 27017
+[START]: Connected to mongodb! port: 27017
+[default]: User Registration succesful
+[START]: Connected to mongodb! port: 27017
+[START]: Connected to mongodb! port: 27017
+[START]: Connected to mongodb! port: 27017
+[START]: Connected to mongodb! port: 27017
+[START]: Connected to mongodb! port: 27017
+[START]: Connected to mongodb! port: 27017
+[ERROR]: Sat Dec 27 47349 04:04:35 GMT+0100 (Hora estándar romance) Object => {
+    "name": "MongoError",
+    "message": "connect ECONNREFUSED"
+}
+[START]: Connected to mongodb! port: 27017
+[START]: Connected to mongodb! port: 27017
+[START]: Connected to mongodb! port: 27017
+[START]: Connected to mongodb! port: 27017
+[START]: Connected to mongodb! port: 27017
+[START]: Connected to mongodb! port: 27017
+[START]: Connected to mongodb! port: 27017
+[START]: Connected to mongodb! port: 27017
+[START]: Connected to mongodb! port: 27017
+[START]: Connected to mongodb! port: 27017
+[START]: Connected to mongodb! port: 27017
+[START]: Connected to mongodb! port: 27017
+[START]: Connected to mongodb! port: 27017
+[START]: Connected to mongodb! port: 27017
+[START]: Connected to mongodb! port: 27017
+[START]: Connected to mongodb! port: 27017

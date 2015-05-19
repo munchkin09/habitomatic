@@ -1,0 +1,37 @@
+block content
+  div.modal-dialog
+    div.modal-content
+      div.modal-header
+        button( data-dismiss="modal" aria-label="Close").close
+          span(aria-hidden="true") &times;
+          
+        h4.text-center.modal-title=title
+      div.modal-body#form
+        form()#frmHabito
+           div.row.form-group
+              div.col-lg-12
+                 h3.text-center Nombre del hábito
+                 input(type='text' placeholder='Nombre del hábito' name='nombre_habito').form-control
+           br/
+           div.row.form-group
+              div.col-lg-6
+                 h3.text-center ¿Qué progresión tiene el hábito?
+                 div(role='group').btn-group
+                    button().btn.btn-default.btn-positiva
+                      span.glyphicon.glyphicon-hand-up
+                    button().btn.btn-danger 
+                      span.glyphicon.glyphicon-hand-down.btn-negativa
+                    input(type="hidden" value="" name="progresion_habito" id="progresion_habito")
+              div.col-lg-6
+                 h3 Color del hábito
+                 div.input-group.demo2
+                   input(type='text' placeholder='¿De qué color será el botón?' name='color_habito').form-control
+                   span.input-group-addon: i
+           div.row.form-group
+              div.col-lg-12
+                 input(type="submit" value="Añadir hábito")#btnAddHabit.btn.btn-default
+                 br/
+  script().
+    $(function(){
+           $('.demo2').colorpicker();
+       });

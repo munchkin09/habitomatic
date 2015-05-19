@@ -1,0 +1,15 @@
+extends ../layout.jade
+block content
+  div#habit-container
+    h1 Hola, bienvenido
+    button.btn.btn-lg.btn-block.btn-primary.btnAddHabit Añadir hábito
+    for habito in habitos
+      button(value='#{habito._id}' style='background-color:#{habito.btn_color}').btn.btn-lg.btn-block.btn-registro-habito
+        | #{habito.habito}
+        | 
+        if habito.perspectiva == 'positiva'
+          span.glyphicon.glyphicon-thumbs-up
+        else
+          span.glyphicon.glyphicon-thumbs-down
+      br/
+  div#modal-container.modal.fade
