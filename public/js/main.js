@@ -75,7 +75,7 @@ $(document).on('click','.btn-registro-habito',function(e)
 		};
 	ajaxCall(data, function(data)
 	{
-    modal-content = data;
+    modal_content = data;
     $('#modal-container').modal('show');
 	})
 });
@@ -87,7 +87,7 @@ $(document).on('click','.add_registro',function(e)
 		type : 'post',
 		contentType : 'json',
 		url : '/add_registro',
-		send : { habito_id : btn.value, }}
+		send : { habito_id : btn.value, }
 		};
 	ajaxCall(data, function(data)
 	{

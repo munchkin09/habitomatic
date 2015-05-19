@@ -3,7 +3,7 @@ var app = express();
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
-var authManager = require('./auth')
+var auth = require('./auth')
 
 var Usuarios = require('./controllers/usuarios'),
     Registros = require('./controllers/registros'),
@@ -19,8 +19,8 @@ app.use(session({
    resave: false,
    saveUninitialized: true
 }));
-app.use(authManager.passport.initialize());
-app.use(authManager.passport.session());
+app.use(auth.passport.initialize());
+app.use(auth.passport.session());
 
 
 
@@ -50,7 +50,7 @@ app.use(function (req, res, next)
 app.get('/', function(req, res){ res.render('index') });
 
 app.post('/auth/login',
-  passport.authenticate('local', { defaultRedirect: '/home',
+  passport.authenticate('local', { successRedirect: '/home',
                                    failureRedirect: '/',
                                    failureFlash: true })
 );
@@ -61,7 +61,7 @@ app.get('/auth/signup', function(req, res){
 });
 
 /* [POST] Handle Registration */
-app.post('/auth/signup', authManager.passport.authenticate('signup', {
+app.post('/auth/signup', auth.passport.authenticate('signup', {
    defaultRedirect: '/home',
    failureRedirect: '/auth/signup',
    failureFlash : false
