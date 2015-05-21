@@ -1,14 +1,18 @@
 var cnnDb = require('../controllers/connection');    //  controlador conexion
+var Util = require('../utiles');
 
-var perspectivas = 'positiva negativa'.split(' ');
 
 var habitoSchema = cnnDb.Mongoose.Schema({
    usuario_id : { type : cnnDb.ObjectId, index : true },
-   perspectiva : { type : String, enum : perspectivas, default : 'positiva' },
+   perspectiva : { type : String, enum : Util.EnumPerspectivas, default : 'positiva' },
    habito : { type : String },
    activo : { type : Boolean },
    created : { type : Date, default : Date.now },
-   btn_color : { type : String }
+   btn_color : { type : String },
+   valores_default : { desencadenante : { type : String, enum : Util.EnumDesencadenantes },
+      gratificacion : { type : String, enum : Util.EnumGratificaciones },
+      intensidad : { type : Number },
+      estado : { type : String, enum : Util.EnumEstados }}
 });
 
 var Habitos = cnnDb.Mongoose.model('habitos', habitoSchema);
@@ -34,5 +38,3 @@ exports.SalvarHabito = function(data, next)
     next(null, resultado);
   });
 }
-
-exports.EnumPerspectivas = perspectivas;

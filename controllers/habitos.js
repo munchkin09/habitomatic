@@ -12,7 +12,8 @@ exports.PostAddHabit = function(req, res)
     habito: req.body.nombre_habito,
     perspectiva: req.body.progresion_habito,
     btn_color : req.body.color_habito,
-    activo : true
+    activo : true,
+    valores_default : {}
   }
   Habitos.SalvarHabito(data,function()
   {

@@ -1,15 +1,12 @@
 var cnnDb = require('../controllers/connection');    //  controlador conexion
+var Util = require('../utiles');
 
-var estados = 'animado normal bajón'.split(' ');
-var desencadenantes = 'ansiedad miedo dolor ira deseo gratificacion felicidad salud'.split(' ');
-
-var gratificaciones = 'si no'.split(' ');
 var registroSchema = cnnDb.Mongoose.Schema({
    habito_id : { type : cnnDb.ObjectId, index : true },
-   desencadenante : { type : String, enum : desencadenantes },
-   gratificacion : { type : String, enum : gratificaciones },
+   desencadenante : { type : String, enum : Util.EnumDesencadenantes },
+   gratificacion : { type : String, enum : Util.EnumGratificaciones },
    intensidad : { type : Number, min : 1, max : 10 },
-   estado : { type : String, enum : estados },
+   estado : { type : String, enum : Util.EnumEstados },
    created : { type : Date, default : Date.now() }
 });
 
@@ -27,7 +24,3 @@ exports.SalvarRegistro = function(data, next)
       }
   });
 }
-
-
-exports.EnumEstados = estados;
-exports.EnumDesencadenantes = desencadenantes;
