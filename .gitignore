@@ -1,2 +1,4 @@
 *.log
 node_modules/
+controllers/connection.js
+auth.js
