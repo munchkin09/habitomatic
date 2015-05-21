@@ -9,11 +9,24 @@ var registroSchema = cnnDb.Mongoose.Schema({
    desencadenante : { type : String, enum : desencadenantes },
    gratificacion : { type : String, enum : gratificaciones },
    intensidad : { type : Number, min : 1, max : 10 },
-   estados : { type : String, enum : estados },
+   estado : { type : String, enum : estados },
    created : { type : Date, default : Date.now() }
 });
 
 var Registros = cnnDb.Mongoose.model('Registros', registroSchema);
+
+exports.SalvarRegistro = function(data, next)
+{
+  var nuevo_registro = new Registros(data)
+  nuevo_registro.save(function(err, resultado)
+  {
+      console.log(err);
+      if(err) next(err, null);
+      else {
+        next(null, resultado);
+      }
+  });
+}
 
 
 exports.EnumEstados = estados;

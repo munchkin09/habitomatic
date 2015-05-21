@@ -1,18 +1,23 @@
 var modal_content = '';
 var estados = 'animado normal bajón'.split(' ');
 var desencadenantes = 'ansiedad miedo dolor ira deseo gratificacion felicidad salud'.split(' ');
-
+var bBlock = false;
 var gratificaciones = 'si no'.split(' ');
 
 $(document).ready(function()
 {
-
+  $('.slider').slider({
+    formatter: function(value) {
+      return 'Intensidad: ' + value;
+    }
+  });
 });
+
+
 
 $(document).on('click','.btn-positiva',function(e)
 {
   e.preventDefault();
-  $('.button btn-danger').removeClass('active');
   $(this).addClass('active');
   $('#progresion_habito').val('positiva');
 });
@@ -20,9 +25,40 @@ $(document).on('click','.btn-positiva',function(e)
 $(document).on('click','.btn-negativa',function(e)
 {
   e.preventDefault();
-  $('.button btn-default').removeClass('active');
   $(this).addClass('active');
   $('#progresion_habito').val('negativa');
+});
+
+
+$(document).on('click','.btn-registro-positiva',function(e)
+{
+  e.preventDefault();
+});
+$(document).on('click','.btn-registro-negativa',function(e)
+{
+  e.preventDefault();
+});
+$(document).on('click','.btn-registro-neutra',function(e)
+{
+  e.preventDefault();
+});
+
+$('#modal-container').on('show.bs.modal', function (e)
+{
+    $(this).html(modal_content);
+});
+
+$(document).on('hide.bs.dropdown',function(e, data)
+{
+  if(bBlock == true)
+  {
+    e.preventDefault();
+  }
+});
+
+$(document).on('show.bs.dropdown',function(e, data)
+{
+  bBlock = true;
 });
 
 $(document).on('click','.btnAddHabit',function(e)
@@ -57,47 +93,25 @@ $(document).on('click','#btnAddHabit',function(e)
 	})
 });
 
-$('#modal-container').on('show.bs.modal', function (e)
-{
-    $(this).html(modal_content);
-});
-
-
 $(document).on('click','.btn-registro-habito',function(e)
 {
-    var btn = this;
-    var data =
-    {
-        type : 'get',
-        contentType : 'html',
-        dataType : '',
-        url : '/add_registro'
-		};
+  bBlock = false;
+  var id = this.value;
+  var data =
+  {
+      type : 'post',
+      contentType : 'json',
+      url : '/add_registro_por_habito',
+      send : { habito_id : id, estado : 'animado', gratificacion : 'si', desencadenante : 'dolor', intensidad : 4 }
+  };
 	ajaxCall(data, function(data)
 	{
-    modal_content = data;
-    $('#modal-container').modal('show');
-	})
+
+      $('#' + id + '_dd').dropdown('hide');
+	});
 });
 
-$(document).on('click','.add_registro',function(e)
-{
-    var btn = this;
-    var data = {
-		type : 'post',
-		contentType : 'json',
-		url : '/add_registro',
-		send : { habito_id : btn.value, }
-		};
-	ajaxCall(data, function(data)
-	{
-    alert("salvado correctamente");
-    $('#modal-container').modal('hide');
-	})
-});
-
-
-function ajaxCall(data, next)
+  function ajaxCall(data, next)
 {
 	$.ajax({
 			async : true,
@@ -114,24 +128,16 @@ function ajaxCall(data, next)
 			},
 			error : function(XHR, status, err)
 			{
-				console.log(err);
 			},
 			complete : function(XHR, status)
-			{
-	     /*$('#personal ul').each('li',function(item)
-				{
-					if($(item).hasClass('active'))
-					{
-						$(item).removeClass('active');
-					}
-				});*/
-
-
+      {
+        next(XHR.responseText);
 				return true;
 			},
 			default : function(data, status, xhr)
 			{
-				next(data);
+          //console.log(data);
+          //next(data);
 			}
 	});
 }
