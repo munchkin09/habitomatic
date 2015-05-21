@@ -18,7 +18,7 @@ exports.PostAddHabit = function(req, res)
   Habitos.SalvarHabito(data,function()
   {
       res.json({ status : 'ok' });
-  })
+  });
 
 }
 
