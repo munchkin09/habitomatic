@@ -9,17 +9,19 @@ var habitoSchema = cnnDb.Mongoose.Schema({
    activo : { type : Boolean },
    created : { type : Date, default : Date.now },
    btn_color : { type : String },
-   valores_default : { desencadenante : { type : String, enum : Util.EnumDesencadenantes },
+   valores_default : {
+      desencadenante : { type : String, enum : Util.EnumDesencadenantes },
       gratificacion : { type : String, enum : Util.EnumGratificaciones },
       intensidad : { type : Number },
-      estado : { type : String, enum : Util.EnumEstados }}
+      estado : { type : String, enum : Util.EnumEstados }
+    }
 });
 
 var Habitos = cnnDb.Mongoose.model('habitos', habitoSchema);
 
 exports.ListarHabitos = function(data, next)
 {
-   Habitos.find({ usuario_id : data.user_id, activo : true },'_id habito btn_color perspectiva',function(err, lstHabitos)
+   Habitos.find({ usuario_id : data.user_id, activo : true },'_id habito btn_color perspectiva valores_default',function(err, lstHabitos)
    {
       if(err) next(err,null);
       else
@@ -37,4 +39,9 @@ exports.SalvarHabito = function(data, next)
     console.dir(err);
     next(null, resultado);
   });
+}
+
+exports.StatsPorHabito = function(data, next)
+{
+
 }

@@ -8,5 +8,4 @@ exports.Home = function(req,res)
   {
     res.render('users/home', { habitos : resultado, nombre : req.user.username });
   });
-
 }

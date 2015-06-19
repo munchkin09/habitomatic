@@ -1,0 +1,25 @@
+//-nav.navbar.navbar-default.navbar-static-top.navbar-fixed-top
+    div.container
+       div.navbar-header
+          button(data-toggle='collapse' data-target='#main_menu' value='' ).navbar-toggle.collapsed
+             span.sr-only Menú
+             span#status_menu.glyphicon.glyphicon-triangle-bottom
+          button(data-container='body' data-placement='bottom')#btnNotify.btn-link.navbar-brand: img(src='/img/logo.png').logo-marca
+       div#main_menu.collapse.navbar-collapse
+          div().tab-panel
+                ul(role="tablist")#main_tabs.nav.nav-tabs.text-center
+                   li(role="presentation")
+                     a(href="#habit-container" aria-controls="habit-container" role="tab" data-toggle="tab").btn-link: span Hábitos
+                   li(role="presentation")
+                      a(href="#stats-container" aria-controls="habit-stats-container" role="tab")#btnMapa.btn-link: span Stats
+                   li(role="presentation")
+                      a(href="#account" aria-controls="account" role="tab" data-toggle="tab").btn-link: span Opciones
+             div(role="tabpanel")#account.tab-pane.fade
+              ul(role='menu').list-group
+               li: a(href='/logout')#btnLogout.list-group-item Logout
+div(role="tabpanel")
+  ul(role="tablist")#main_tabs.nav.nav-pills.text-center
+    li(role="presentation").active: a(href='#habit-container' aria-controls="habit-container" role="tab" data-toggle="pill") Hábitos
+    li(role="presentation"): a(href='#stats-container' aria-controls="stats-container" role="tab" data-toggle="pill") Stats
+    li(role="presentation"): a(href='#opciones-container' aria-controls="opciones-container" role="tab" data-toggle="pill") Opciones
+  block content

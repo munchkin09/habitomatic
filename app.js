@@ -3,7 +3,8 @@ var app = express();
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
-var auth = require('./auth')
+var flash = require('connect-flash');
+var auth = require('./auth');
 
 var Usuarios = require('./controllers/usuarios'),
     Registros = require('./controllers/registros'),
@@ -21,9 +22,7 @@ app.use(session({
 }));
 app.use(auth.passport.initialize());
 app.use(auth.passport.session());
-
-
-
+app.use(flash());
 
 app.use(function (req, res, next)
 {
@@ -40,7 +39,7 @@ app.use(function (req, res, next)
                    next();
                    break;
                 default:
-                   res.render('index', { title : 'Bienvenido a Habit Checker' });
+                   res.render('index', { title : 'Bienvenido a Habit-O-matic' });
                    res.end();
                    break;
             }
@@ -51,20 +50,26 @@ app.get('/', function(req, res){ res.render('index') });
 
 app.post('/auth/login',
   passport.authenticate('local', { successRedirect: '/home',
-                                   failureRedirect: '/',
-                                   failureFlash: true })
+                                   failureRedirect: '/' })
 );
 
 
 app.get('/auth/signup', function(req, res){
-   res.render('users/signup',{title:'Registro mediante email'});
+    if(req.flash('error') == 'Usuario existente.')
+    {
+      res.render('users/signup', {title:'Registro mediante email', message : req.flash('error') });
+    }
+    else
+    {
+      res.render('users/signup', {title:'Registro mediante email' });
+    }
 });
 
 /* [POST] Handle Registration */
 app.post('/auth/signup', auth.passport.authenticate('signup', {
    defaultRedirect: '/home',
    failureRedirect: '/auth/signup',
-   failureFlash : false
+   failureFlash : true
 }));
 
 app.get('/logout', function(req, res)
@@ -83,6 +88,9 @@ app.put('/change_habit', Habitos.PutChangeHabit);
 app.get('/registros_por_habito', Registros.GetRegistrosPorHabito);
 app.get('/add_registro_por_habito', Registros.GetAddRegistro);
 app.post('/add_registro_por_habito', Registros.PostAddRegistro);
+
+app.get('/stats_habito/:id', Habitos.GetHabitData)
+
 
 
 app.listen(3001);

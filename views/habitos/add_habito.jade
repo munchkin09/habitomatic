@@ -14,19 +14,56 @@ block content
                  input(type='text' placeholder='Nombre del hábito' name='nombre_habito').form-control
            br/
            div.row.form-group
-              div.col-lg-6
-                 h3.text-center ¿Qué progresión tiene el hábito?
+              div.col-lg-6.text-center
+                 h3 ¿Qué progresión tiene el hábito?
                  div(role='group').btn-group
-                    button().btn.btn-default.btn-positiva
+                    button(value="positiva").btn.btn-success.btn-perspectiva-positiva
                       span.glyphicon.glyphicon-hand-up
-                    button().btn.btn-danger 
-                      span.glyphicon.glyphicon-hand-down.btn-negativa
-                    input(type="hidden" value="" name="progresion_habito" id="progresion_habito")
-              div.col-lg-6
+                    button(value="negativa").btn.btn-danger.btn-perspectiva-negativa
+                      span.glyphicon.glyphicon-hand-down
+                input(type="hidden" value="" name="progresion_habito" id="progresion_habito")
+              div.col-lg-6.text-center
                  h3 Color del hábito
                  div.input-group.demo2
                    input(type='text' placeholder='¿De qué color será el botón?' name='color_habito').form-control
                    span.input-group-addon: i
+           div.row.form-group
+            div.col-lg-12.text-center
+              button(type="button" data-toggle="collapse" data-target='#div_valores_default').btn.btn-primary Valores por defecto
+              div#div_valores_default.collapse 
+                ul(role="menu" aria-labelledby="dafault_dd")
+                  li 
+                    h5.text-center Intensidad
+                    input(name="default_intensidad" id='default_intensidad' data-slider-id='#default_intensidad' type="text" data-slider-min="1" data-slider-max="10" data-slider-step="1").slider
+                  li.text-center
+                    h5.text-center ¿En qué estado haces tu hábito?
+                    div(role='group').btn-group
+                      button(value="animado").btn.btn-success.btn-default-positiva
+                        span.glyphicon.glyphicon-hand-up
+                      button(value="normal").btn.btn-warning.btn-default-neutra
+                        span.glyphicon.glyphicon-hand-left
+                      button(value="bajón").btn.btn-danger.btn-default-negativa
+                        span.glyphicon.glyphicon-hand-down
+                  li.text-center
+                    h5.text-center ¿Gratificación?
+                    input(name="default_gratificacion" id='default_gratificacion' type="hidden")
+                    div(role='group').btn-group
+                      button(value="si").btn.btn-success.btn-si
+                        span SI
+                      button(value="no").btn.btn-danger.btn-no
+                        span NO
+                  li.text-center
+                    h5.text-center ¿Qué ha desencadenado el hábito?
+                    select(id="default_desencadenante" name="default_desencadenante").form-control
+                      option(value='ansiedad') Ansiedad
+                      option(value='miedo') Miedo
+                      option(value='dolor') Dolor
+                      option(value='ira') ira
+                      option(value='deseo') Deseo
+                      option(value='gratificacion') Gratificación
+                      option(value='felicidad') Felicidad
+                      option(value='salud') Salud
+                    input(type="hidden" value="" name="default_estado" id="default_estado")
            div.row.form-group
               div.col-lg-12
                  input(type="submit" value="Añadir hábito")#btnAddHabit.btn.btn-default
@@ -35,3 +72,8 @@ block content
     $(function(){
            $('.demo2').colorpicker();
        });
+     $('.slider').slider({
+       formatter: function(value) {
+         return 'Intensidad: ' + value;
+       }
+     });

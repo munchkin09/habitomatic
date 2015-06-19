@@ -1,45 +1,68 @@
 extends ../layout.jade
 block content
-  div#habit-container
-    h1 Hola, bienvenido
-    button.btn.btn-lg.btn-block.btn-primary.btnAddHabit Añadir hábito
-    br/
-    for habito in habitos
-      div.btn-group.btn-block
-        button(value='#{habito._id}' style='background-color:#{habito.btn_color}' ).btn.btn-lg.btn-registro-habito
-          | #{habito.habito}
-          | 
-          if habito.perspectiva == 'positiva'
-            span.glyphicon.glyphicon-thumbs-up
-          else
-            span.glyphicon.glyphicon-thumbs-down
-        button( data-toggle="dropdown" aria-expanded="false" id="#{habito._id}_dd").btn.btn-lg.btn-primary.dropdown-toggle
-            span.caret
-            span.sr-only Toggle Dropwdown
-        ul(role="menu" aria-labelledby="#{habito._id}_dd").dropdown-menu
-          li 
-            h5.text-center Intensidad
-            input( id='#{habito._id}_intensidad' data-slider-id='#{habito._id}_intensidad' type="text" data-slider-min="1" data-slider-max="10" data-slider-step="1").slider
-          li.text-center
-            h5.text-center ¿En qué estado haces tu hábito?
-            div(role='group').btn-group
-              button(value="animado").btn.btn-success.btn-positiva
-                span.glyphicon.glyphicon-hand-up
-              button(value="normal").btn.btn-warning 
-                span.glyphicon.glyphicon-hand-left.btn-neutro
-              button(value="bajón").btn.btn-danger
-                span.glyphicon.glyphicon-hand-down.btn-neutro
-          li.text-center
-            h5.text-center ¿Qué ha desencadenado el hábito?
-            select(id="#{habito._id}_desencadenante").form-control
-              option(value='ansiedad') Ansiedad
-              option(value='miedo') Miedo
-              option(value='dolor') Dolor
-              option(value='ira') ira
-              option(value='deseo') Deseo
-              option(value='gratificacion') Gratificación
-              option(value='felicidad') Felicidad
-              option(value='salud') Salud
-            input(type="hidden" value="" name="estado_registro" id="#{habito._id}_estado")
-            input(type="hidden" value="" name="desencadenante_registro" id="desencadenante_registro")
-  div#modal-container.modal.fade
+  include ../navbar.jade
+  div.bg-home.img-responsive
+    div.tab-content
+      div(role="tabpanel" )#habit-container.tab-pane.fade.in.active
+        h1.text-center Hola, bienvenido
+        button.btn.btn-lg.btn-block.btn-primary.btnAddHabit Añadir hábito
+        br/
+        for habito in habitos
+          div().btn-group.btn-block
+            button(value='#{habito._id}' style='background-color:#{habito.btn_color};width:85%;' ).btn.btn-lg.btn-registro-habito
+              | #{habito.habito}
+              | 
+              if habito.perspectiva == 'positiva'
+                span.glyphicon.glyphicon-thumbs-up
+              else
+                span.glyphicon.glyphicon-thumbs-down
+            button( data-toggle="dropdown" aria-expanded="false" id="#{habito._id}_dd").btn.btn-lg.btn-primary.dropdown-toggle
+                span.caret
+                span.sr-only Toggle Dropwdown
+            ul(role="menu" aria-labelledby="#{habito._id}_dd").dropdown-menu
+              li.item-menu
+                h5.text-center Intensidad
+                input(value='#{habito.valores_default.intensidad}' data-slider-id='#{habito._id}_intensidad' type="text" data-slider-min="1" data-slider-max="10" data-slider-step="1").slider
+                input(type='hidden' id='#{habito._id}_intensidad' value='#{habito.valores_default.intensidad}')
+              li.text-center.item-menu
+                h5.text-center ¿En qué estado haces tu hábito?
+                input(type="hidden" value="#{habito.valores_default.estado}" name="estado_registro" id="#{habito._id}_estado")
+                div(role='group').btn-group
+                  button(value="animado").btn.btn-success.btn-positiva
+                    span.glyphicon.glyphicon-hand-up
+                  button(value="normal").btn.btn-warning 
+                    span.glyphicon.glyphicon-hand-left.btn-neutro
+                  button(value="bajón").btn.btn-danger
+                    span.glyphicon.glyphicon-hand-down.btn-neutro
+              li.text-center.item-menu
+                h5.text-center ¿Qué ha desencadenado el hábito?
+                select(id="#{habito._id}_desencadenante" value='#{habito.valores_default.desencadenante}').form-control
+                  option(value='ansiedad').form-control Ansiedad
+                  option(value='miedo').form-control Miedo
+                  option(value='dolor').form-control Dolor
+                  option(value='ira').form-control ira
+                  option(value='deseo').form-control Deseo
+                  option(value='gratificacion').form-control Gratificación
+                  option(value='felicidad').form-control Felicidad
+                  option(value='salud').form-control Salud
+              li.text-center.item-menu
+                h5.text-center ¿Tiene gratificación?
+                button(value='si') SI
+                button(value='no') NO
+                input(type='hidden' value='#{habito.valores_default.gratificacion}' name="gratif_registro" id="#{habito._id}_gratificacion")
+      div#stats-container.tab-pane.fade
+        h1 Stats bienvenido
+        br/
+        for habito in habitos
+          button(value='#{habito._id}' style='background-color:#{habito.btn_color}' ).btn.btn-lg.btn-stats-habito
+            | #{habito.habito}
+            | 
+            if habito.perspectiva == 'positiva'
+              span.glyphicon.glyphicon-thumbs-up
+            else
+              span.glyphicon.glyphicon-thumbs-down
+        div#chart-container
+      div#opciones-container.tab-pane.fade
+        h1 OPs, bienvenido
+        a(href="/logout").btn.btn-link Logout
+    div#modal-container.modal.fade

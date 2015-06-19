@@ -10,7 +10,7 @@ passport.use('signup', new LocalStrategy({
   function(req, username, password, done) {
     findOrCreateUser = function(){
       // find a user in Mongo with provided username
-      User.mUser.findOne({'username':username},function(err, user) {
+      User.mUser.findOne({ 'username' : username },function(err, user) {
         // In case of any error return
         if (err){
           Err.Log('Error in SignUp: '+err, "error");
@@ -19,8 +19,7 @@ passport.use('signup', new LocalStrategy({
         // already exists
         if (user) {
           Err.Log('User already exists', "warning");
-          return done(null, false,
-             req.flash('message','User Already Exists'));
+          return done(null, false, { message : 'Usuario existente.' });
         } else {
           // if there is no user with that email
           // create the user
@@ -34,8 +33,9 @@ passport.use('signup', new LocalStrategy({
                  Err.Log('Error in Saving user: '+err, "error");
                  throw err;
                }
-               else{
-               Err.Log('User Registration succesful', "default");
+               else
+               {
+                  Err.Log('User Registration succesful', "default");
                   var data = {
                      user : restUser
                   };
@@ -63,7 +63,7 @@ passport.use(new LocalStrategy(
       if (!isValidPassword(user,password)) {
         return done(null, false, { message: 'Incorrect password.' });
       }
-      return done(null, user);
+      return done(null, user,  { message: 'Hola de nuevo.' });
     });
   }
 ));

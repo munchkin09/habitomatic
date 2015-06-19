@@ -7,13 +7,12 @@ exports.GetAddRegistro = function(req, res)
 }
 exports.PostAddRegistro = function(req, res)
 {
-  console.log(req.body);
   var data = {
       habito_id : req.body.habito_id,
       desencadenante : req.body.desencadenante,
       gratificacion : req.body.gratificacion,
       intensidad : req.body.intensidad,
-      estado : req.body.estado
+      estado : req.body.estado_registro
      }
 
   Registros.SalvarRegistro(data,function(err, resultado)

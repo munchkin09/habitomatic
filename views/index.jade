@@ -1,15 +1,18 @@
 extends layout 
 block content
-    h1 Habit-O-matic 
-      small Tu nueva herramienta para analizar hábitos
-    div.container.fill
-     h1.text-center.login-title Bienvenido
-     p.text-center
-       img(src='/img/default.png').img-circle.img-mascota-lg.img-mascota-md
-     form(class='form-signin', action='/auth/login', method='POST')
-      input(type='text', name='username' class='form-control', placeholder='Nombre de usuario',required, autofocus)
-      input(type='password', name='password' class='form-control', placeholder='Contraseña', required)
-      button(class='btn btn-lg btn-primary btn-block', type='submit') Entra!
-      a(href='/auth/signup', class='text-center recover-pass') Date de alta!
-      a(href='/auth/recoverpass', class='text-center recover-pass') Olvidastes la contraseña?
-      span.clearfix
+  div.container.bg-index.img-responsive
+      h1.text-center Habit-O-matic
+        br/
+        small Tú nueva herramienta para analizar hábitos
+      br/
+      div.container.fill
+       h1.text-center.login-title Bienvenido
+       form(class='form-signin', action='/auth/login', method='POST')
+        input(type='text', name='username' class='form-control', placeholder='Nombre de usuario',required, autofocus)
+        input(type='password', name='password' class='form-control', placeholder='Contraseña', required)
+        button(class='btn btn-lg btn-primary btn-block', type='submit') Entra!
+        a(href='/auth/signup', class='text-center recover-pass') Date de alta!
+        a(href='/auth/recoverpass', class='text-center recover-pass') Olvidastes la contraseña?
+        span.clearfix
+        if message
+            h1.text-center #{message}
